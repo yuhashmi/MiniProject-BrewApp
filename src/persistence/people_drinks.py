@@ -2,7 +2,7 @@ import csv
 
 # Reads people list
 
-PEOPLE_FILE_PATH = './data/people.csv'
+PEOPLE_FILE_PATH = 'src/data/people.csv'
 
 people = []
 
@@ -14,7 +14,7 @@ def people_list():
 
 # Reads drink list
 
-DRINKS_FILE_PATH = './data/drinks.csv'
+DRINKS_FILE_PATH = 'src/data/drinks.csv'
 
 drinks = []
 

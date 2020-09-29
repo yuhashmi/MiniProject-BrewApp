@@ -59,3 +59,4 @@ def select_from_menu(message, data):
 
 def output(text):
     print(f'\n{text}')
+

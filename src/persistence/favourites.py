@@ -1,7 +1,7 @@
 import csv
-from menu.table import print_table
+from src.menu.table import print_table
 
-FAVOURITES_FILE_PATH = './data/favourites.csv'
+FAVOURITES_FILE_PATH = 'src/data/favourites.csv'
 
 fav_drinks = {}
 
