@@ -1,11 +1,11 @@
 import pymysql 
+from persistence.get_connection import connection
 
 def insert_people_sql():
     print("Starting SQL")
-    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
     cursor = connection.cursor()
 
-    args = (2, "Jill")
+    args = (3, "Levi")
     print("Taking in args...")
     cursor.execute("INSERT into People (ID, Name) VALUES (%s, %s)", args)
     print("Executed")

@@ -22,20 +22,3 @@ def insert_drink_sql():
 
 insert_drink_sql()
 
-def read_database(database):
-    print("Starting SQL")
-    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM {database}")
-    print("Executed")
-    # connection.commit()
-    data = cursor.fetchall()
-    cursor.close()
-    connection.close()
-
-    print_table(item)
-    
-    print("rows")
-    return
-
