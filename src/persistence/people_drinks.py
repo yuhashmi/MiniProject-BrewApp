@@ -1,4 +1,6 @@
 import csv
+import pymysql
+
 
 # Reads people list
 
@@ -49,6 +51,23 @@ def add_drink_person_to_csv_file(path, data):
         # people_writer.writerow([name])
         writer.writerow(data)
 
+# def read_database(database):
+#     print("Starting SQL")
+#     connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+#     cursor = connection.cursor()
+
+#     cursor.execute("SELECT * FROM {database}")
+#     print("Executed")
+#     # connection.commit()
+#     rows = cursor.fetchall()
+#     cursor.close()
+#     connection.close()
+
+#     for row in rows:
+#         print(row)
+    
+#     print("rows")
+#     return
 # # Using files - writing to files
 # def do_the_file_stuff(people_file_path, drink_file_path, name, drink):
 #     # Opening two files and adding data to them
