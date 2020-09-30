@@ -1,13 +1,13 @@
 import pymysql 
 
-def insert_drink_sql():
+def insert_people_sql():
     print("Starting SQL")
     connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
     cursor = connection.cursor()
 
-    args = (1, "Water", 0.80)
+    args = (2, "Jill")
     print("Taking in args...")
-    cursor.execute("INSERT into Drinks (DrinkID, Drink, Price) VALUES (%s, %s, %s)", args)
+    cursor.execute("INSERT into People (ID, Name) VALUES (%s, %s)", args)
     print("Executed")
     connection.commit()
     rows = cursor.fetchall()
@@ -20,4 +20,4 @@ def insert_drink_sql():
     print("rows")
     return
 
-insert_drink_sql()
+insert_people_sql()
