@@ -7,11 +7,12 @@ Welcome to {APP_NAME} v0.1!
 Please, select an option by entering a number:
     [1] Get all people
     [2] Get all drinks
-    [3] Add People and Drinks 
-    [4] Set a favourite drink
-    [5] View favourites
-    [6] Order drink(s)
-    [7] Exit
+    [3] Add People 
+    [4] Add Drinks
+    [5] Set a favourite drink
+    [6] View favourites
+    [7] Order drink(s)
+    [8] Exit
 '''
 
 def get_menu_input(message: str):
@@ -52,10 +53,18 @@ def validate_menu_input(index, data):
         return False
     return data[index]
 
+# def select_from_menu(message, data):
+#     print_menu(message, data)
+#     index = get_menu_input(f'{message}')
+#     return validate_menu_input(index, data)
+
 def select_from_menu(message, data):
     print_menu(message, data)
-    index = get_menu_input(f'{message}')
-    return validate_menu_input(index, data)
+    index = get_menu_input('Enter your selection:')
+    if not validate_menu_input(index, data):
+        return False
+    return data[index]
+
 
 def output(text):
     print(f'\n{text}')

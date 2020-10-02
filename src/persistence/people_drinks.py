@@ -1,6 +1,7 @@
 import csv
 import pymysql
-from get_connection import connection
+from menu.table import print_table
+from core.people_class import People
 
 
 # Reads people list
@@ -52,22 +53,51 @@ def add_drink_person_to_csv_file(path, data):
         # people_writer.writerow([name])
         writer.writerow(data)
 
-def read_database(database):
+
+def load_people():
+    data = []
     print("Starting SQL")
-    cursor = connection.cursor()
+    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+    with connection.cursor() as cursor:
+        sql = f'SELECT * FROM People'
+        cursor.execute(sql)
+    try:
+        while True:
+            people_data = cursor.fetchone()
+            if not people_data:
+                break
+            data.append(People(
+                        people_data[0],
+                        people_data[1],
+                        ))
+            connection.commit()
+    finally:
+            connection.close()
+    return data
 
-    cursor.execute("SELECT * FROM {database}")
-    print("Executed")
-    # connection.commit()
-    rows = cursor.fetchall()
-    cursor.close()
-    connection.close()
+def insert_people_db(People):
+    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f'INSERT INTO People (Name) VALUES ("{People.name}, {People.age}")')
+            connection.commit()
+        cursor.close()
+    finally:
+        connection.close()
 
-    for row in rows:
-        print(row)
-    
-    print("rows")
-    return
+def insert_people_sql_func():
+    ppl_name = input("Please enter first name: ")
+    age = input("Please enter age: ")
+    people_1 = People(ppl_name, age)
+    insert_people_db(people_1)
+    print(f'{ppl_name} has been added') 
+
+
+
+
+
+
+
 # # Using files - writing to files
 # def do_the_file_stuff(people_file_path, drink_file_path, name, drink):
 #     # Opening two files and adding data to them
