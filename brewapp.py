@@ -1,7 +1,6 @@
 import os 
 import sys
 import csv
-import pymysql
 from src.menu.commands import GET_PEOPLE, GET_DRINKS, add_people, add_drinks, Set_fav, View_fav, order_drinks, exit_menu
 from src.core.rounds import Drinks
 from src.persistence.people_drinks import people, people_list, load_people, insert_people_db, drink_list, add_people_drinks, drinks, insert_people_sql_func
