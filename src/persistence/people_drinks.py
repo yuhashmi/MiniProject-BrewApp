@@ -80,7 +80,9 @@ def insert_people_db(People):
     connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
     try:
         with connection.cursor() as cursor:
-            cursor.execute(f'INSERT INTO People (Name) VALUES ("{People.name}, {People.age}")')
+            data = [str(People.id), People.name, People.age]
+            sql = 'INSERT INTO People (ID, Name, Age) VALUES (%s, %s, %s)'
+            cursor.execute(sql, data)
             connection.commit()
         cursor.close()
     finally:
@@ -98,8 +100,8 @@ def insert_drink(self, drink):
         print('Connection made')
         try:
             with connection.cursor() as cursor:
-                data = [str(drink.drinkid), drink.drink, drink.price]
-                sql = 'INSERT INTO drink (drinkid, drink, price) VALUES (%s, %s, %s)'
+                data = [str(Drink.drinkid), Drink.drink, Drink.price]
+                sql = 'INSERT INTO Drinks (DrinkID, Drink, Price) VALUES (%s, %s, %s)'
                 cursor.execute(sql, data)
                 connection.commit()
         finally:
