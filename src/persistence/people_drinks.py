@@ -1,5 +1,6 @@
 import csv
 import pymysql
+from prettytable import from_cursor
 from menu.table import print_table
 from core.people_class import People
 from core.drink_class import Drink
@@ -54,14 +55,23 @@ def add_drink_person_to_csv_file(path, data):
         # people_writer.writerow([name])
         writer.writerow(data)
 
+def connect():
+    return pymysql.connect(host="localhost", 
+                            port=3306,
+                            db="brewapp",
+                            user="root",
+                            password="password",
+                            autocommit=True
+                            )
 
 def load_people():
     data = []
     print("Starting SQL")
-    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+    connection = connect()
     with connection.cursor() as cursor:
         sql = f'SELECT * FROM People'
         cursor.execute(sql)
+        mytable = from_cursor(cursor)
     try:
         while True:
             people_data = cursor.fetchone()
@@ -77,11 +87,11 @@ def load_people():
     return data
 
 def insert_people_db(People):
-    connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+    connection = connect()
     try:
         with connection.cursor() as cursor:
-            data = [str(People.id), People.name, People.age]
-            sql = 'INSERT INTO People (ID, Name, Age) VALUES (%s, %s, %s)'
+            data = [People.name, People.age]
+            sql = 'INSERT INTO People (Name, Age) VALUES (%s, %s)'
             cursor.execute(sql, data)
             connection.commit()
         cursor.close()
@@ -96,12 +106,12 @@ def insert_people_sql_func():
     print(f'{ppl_name} has been added') 
 
 def insert_drink(self, drink):
-        connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+        connection = connect()
         print('Connection made')
         try:
             with connection.cursor() as cursor:
-                data = [str(Drink.drinkid), Drink.drink, Drink.price]
-                sql = 'INSERT INTO Drinks (DrinkID, Drink, Price) VALUES (%s, %s, %s)'
+                data = [Drink.drink, Drink.price]
+                sql = 'INSERT INTO Drinks (Drink, Price) VALUES (%s, %s)'
                 cursor.execute(sql, data)
                 connection.commit()
         finally:
@@ -109,11 +119,12 @@ def insert_drink(self, drink):
 
 def load_drinks(self):
         data = []
-        connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+        connection = connect()
         try:
             with connection.cursor() as cursor:
                 sql = 'SELECT * from drink'
                 cursor.execute(sql)
+                mytable = from_cursor(cursor)
                 while True:
                     drink_data = cursor.fetchone()
                     if not drink_data:
