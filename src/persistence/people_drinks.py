@@ -2,6 +2,7 @@ import csv
 import pymysql
 from menu.table import print_table
 from core.people_class import People
+from core.drink_class import Drink
 
 
 # Reads people list
@@ -79,7 +80,9 @@ def insert_people_db(People):
     connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
     try:
         with connection.cursor() as cursor:
-            cursor.execute(f'INSERT INTO People (Name) VALUES ("{People.name}, {People.age}")')
+            data = [str(People.id), People.name, People.age]
+            sql = 'INSERT INTO People (ID, Name, Age) VALUES (%s, %s, %s)'
+            cursor.execute(sql, data)
             connection.commit()
         cursor.close()
     finally:
@@ -92,8 +95,34 @@ def insert_people_sql_func():
     insert_people_db(people_1)
     print(f'{ppl_name} has been added') 
 
+def insert_drink(self, drink):
+        connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+        print('Connection made')
+        try:
+            with connection.cursor() as cursor:
+                data = [str(Drink.drinkid), Drink.drink, Drink.price]
+                sql = 'INSERT INTO Drinks (DrinkID, Drink, Price) VALUES (%s, %s, %s)'
+                cursor.execute(sql, data)
+                connection.commit()
+        finally:
+            connection.close()
 
-
+def load_drinks(self):
+        data = []
+        connection = pymysql.connect(host="localhost", port=33066, user="root", password="password", database="brewapp")
+        try:
+            with connection.cursor() as cursor:
+                sql = 'SELECT * from drink'
+                cursor.execute(sql)
+                while True:
+                    drink_data = cursor.fetchone()
+                    if not drink_data:
+                        break
+                    data.append(Drink(drink_data[0], drink_data[1], drink_data[2]))
+                connection.commit()
+        finally:
+            connection.close()
+        return data
 
 
 
