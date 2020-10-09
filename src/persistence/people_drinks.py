@@ -1,6 +1,6 @@
 import csv
 import pymysql
-from prettytable import from_cursor
+# from prettytable import from_cursor
 from menu.table import print_table
 from core.people_class import People
 from core.drink_class import Drink
@@ -105,7 +105,7 @@ def insert_people_sql_func():
     insert_people_db(people_1)
     print(f'{ppl_name} has been added') 
 
-def insert_drink(self, drink):
+def insert_drink(drink):
         connection = connect()
         print('Connection made')
         try:
@@ -117,23 +117,34 @@ def insert_drink(self, drink):
         finally:
             connection.close()
 
-def load_drinks(self):
-        data = []
-        connection = connect()
-        try:
-            with connection.cursor() as cursor:
-                sql = 'SELECT * from drink'
-                cursor.execute(sql)
-                mytable = from_cursor(cursor)
-                while True:
-                    drink_data = cursor.fetchone()
-                    if not drink_data:
-                        break
-                    data.append(Drink(drink_data[0], drink_data[1], drink_data[2]))
-                connection.commit()
-        finally:
+def insert_drink_func():
+    drink_name = input("Please enter drink name: ")
+    price = input("Please enter the drink's price: ")
+    add_drink = Drink(drink_name, price)
+    insert_drink(add_drink)
+    print(f'{drink_name} has been added')
+
+def load_drinks():
+    data = []
+    print("Starting SQL")
+    connection = connect()
+    with connection.cursor() as cursor:
+        sql = f'SELECT * FROM Drinks'
+        cursor.execute(sql)
+        mytable = from_cursor(cursor)
+    try:
+        while True:
+            drink_data = cursor.fetchone()
+            if not drink_data:
+                break
+            data.append(Drink(
+                        drink_data[0],
+                        drink_data[1],
+                        ))
+            connection.commit()
+    finally:
             connection.close()
-        return data
+    return data
 
 
 

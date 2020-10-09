@@ -3,7 +3,7 @@ import sys
 import csv
 from src.menu.commands import GET_PEOPLE, GET_DRINKS, add_people, add_drinks, Set_fav, View_fav, order_drinks, exit_menu
 from src.core.rounds import Drinks
-from src.persistence.people_drinks import people, people_list, load_people, insert_people_db, drink_list, add_people_drinks, drinks, insert_people_sql_func
+from src.persistence.people_drinks import people, people_list, load_people, insert_people_db, drink_list, add_people_drinks, drinks, insert_people_sql_func, insert_drink_func, load_drinks
 from src.persistence.favourites import print_favourites, fav_drinks, load_favourites, save_favourites, write_to_file
 from src.menu.table import print_table 
 from src.menu.index_menu import MENU, APP_NAME, get_menu_input, get_selection, print_main_menu, clear_screen, select_from_menu, wait
@@ -231,7 +231,7 @@ def run():
         wait()
         run()
     elif command == add_drinks:
-        add_people_drinks()
+        insert_drink_func()
         wait()
         run()
     elif command == Set_fav:
