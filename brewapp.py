@@ -3,8 +3,8 @@ import sys
 import csv
 from src.menu.commands import GET_PEOPLE, GET_DRINKS, add_people, add_drinks, Set_fav, View_fav, order_drinks, exit_menu
 from src.core.rounds import Drinks
-from src.persistence.people_drinks import people, people_list, load_people, insert_people_db, drink_list, add_people_drinks, drinks, insert_people_sql_func, insert_drink_func, load_drinks
-from src.persistence.favourites import print_favourites, fav_drinks, load_favourites, save_favourites, write_to_file
+from src.persistence.people_drinks import people, drinks, favourites, load_people, insert_people_db, drinks, insert_to_people_table, load_drinks, print_db_data, insert_to_drink_table, load_favs_from_db, print_db_favs
+from src.persistence.favourites import set_drink_favs
 from src.menu.table import print_table 
 from src.menu.index_menu import MENU, APP_NAME, get_menu_input, get_selection, print_main_menu, clear_screen, select_from_menu, wait
 
@@ -217,39 +217,29 @@ def run():
 # if conditions instructing the menu
  
     if command == GET_PEOPLE:
-        people_list()
-        print_table("People", people)
+        load_people()
+        print_table("People", print_db_data(people))
         wait()
         run()
     elif command == GET_DRINKS:
-        drink_list()
-        print_table("Drinks", drinks)
+        load_drinks()
+        print_table("Drinks", print_db_data(drinks))
         wait()
         run()
     elif command == add_people:
-        insert_people_sql_func()
+        insert_to_people_table()
         wait()
         run()
     elif command == add_drinks:
-        insert_drink_func()
+        insert_to_drink_table()
         wait()
         run()
     elif command == Set_fav:
-        person = select_from_menu('Choose a person', people)
-        if not person:
-            wait()
-            run()
-
-        drink = select_from_menu(f'Choose a drink for {person}', drinks)
-        if not drink:
-            wait()
-            run()
-
-        fav_drinks[person] = drink
-        print(f"\nThank you - {person}'s favourite drink is now {drink}")
+        set_drink_favs()
         wait()
     elif command == View_fav:
-        print_favourites(fav_drinks)
+        load_favs_from_db()
+        print_table("Favourite Drinks", print_db_favs(favourites))
         wait()
         run()
     elif command == order_drinks:
@@ -258,7 +248,6 @@ def run():
         wait()
         run()
     elif command == exit_menu:
-        save_favourites(fav_drinks)
         print(f'Thank you for using {APP_NAME}')
         exit()
     else:
@@ -267,9 +256,9 @@ def run():
         run()
 
 def start():
-    people_list()
-    drink_list()
-    load_favourites(people, drinks)
+    load_people()
+    load_drinks()
+    load_favs_from_db()
     run()
 
 if __name__ == '__main__':
