@@ -3,8 +3,9 @@
 
 GET_PEOPLE = 1
 GET_DRINKS = 2
-people_drinks = 3
-Set_fav = 4
-View_fav = 5
-order_drinks = 6
-exit_menu = 7
+add_people = 3
+add_drinks = 4
+Set_fav = 5
+View_fav = 6
+order_drinks = 7
+exit_menu = 8
