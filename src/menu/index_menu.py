@@ -1,6 +1,6 @@
 import os
 
-APP_NAME = "BrIW"
+APP_NAME = "Brew App"
 
 MENU = f'''
 Welcome to {APP_NAME} v0.1!

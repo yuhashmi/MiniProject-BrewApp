@@ -1,6 +1,3 @@
-import os 
-import sys
-import csv
 from src.menu.commands import GET_PEOPLE, GET_DRINKS, add_people, add_drinks, Set_fav, View_fav, order_drinks, exit_menu
 from src.core.rounds import Drinks
 from src.persistence.people_drinks import people, drinks, favourites, load_people, insert_people_db, drinks, insert_to_people_table, load_drinks, print_db_data, insert_to_drink_table, load_favs_from_db, print_db_favs
