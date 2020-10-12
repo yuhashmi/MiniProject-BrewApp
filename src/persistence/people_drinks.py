@@ -75,7 +75,7 @@ def print_db_favs(data):
 
 def connect():
     return pymysql.connect(host="localhost", 
-                            port=3306,
+                            port=33066,
                             db="brewapp",
                             user="root",
                             password="password",
@@ -90,19 +90,18 @@ def load_people():
         sql = f'SELECT * FROM People'
         cursor.execute(sql)
         # mytable = from_cursor(cursor)
-    try:
-        while True:
-            people_data = cursor.fetchone()
+        try:
+            people_data = cursor.fetchall()
 
-    except Exception as err:
-        print(f"ERROR with:\n{err}")
- 
-    finally:
-            connection.close()
-            cursor.close()
+        except Exception as err:
+            print(f"ERROR with:\n{err}")
     
-    for id, name, age in people_data:
-        people[id] = name, age
+        finally:
+                connection.close()
+                cursor.close()
+        
+        for id, name, age in people_data:
+            people[id] = name, age
 
 def insert_people_db(name, age):
     connection = connect()
@@ -119,6 +118,7 @@ def insert_to_people_table():
     print("Please enter the customer's name")
     try:
         name = input("\nName: ").strip()
+        age = input("\nAge: ").strip()
 
         if string_exist(name):
             pass
@@ -149,19 +149,18 @@ def load_drinks():
         sql = f'SELECT * FROM Drinks'
         cursor.execute(sql)
         # mytable = from_cursor(cursor)
-    try:
-        while True:
-            drink_data = cursor.fetchone()
+        try:
+            drink_data = cursor.fetchall()
 
-    except Exception as err:
-        print(f"ERROR with:\n{err}")
- 
-    finally:
-            connection.close()
-            cursor.close()
+        except Exception as err:
+            print(f"ERROR with:\n{err}")
     
-    for id, drink, price in drink_data:
-        drinks[id] = drink, price
+        finally:
+                connection.close()
+                cursor.close()
+        
+        for id, drink, price in drink_data:
+            drinks[id] = drink, price
 
 def insert_drink_db(drink, price):
     connection = connect()
@@ -178,7 +177,7 @@ def insert_to_drink_table():
     print("Please enter the drink's name")
     try:
         drink = input("\nDrink: ").strip()
-        price = input(int("\nPrice: ")).strip()
+        price = input("\nPrice: ").strip()
 
         if string_exist(drink):
             pass
@@ -205,35 +204,34 @@ def load_favs_from_db():
     global favourites
     connection = connect()
 
-    try:
-        with connection.cursor as cursor:
-            sql = 'SELECT DrinkID, Name FROM FavouriteDrinks'
+    with connection.cursor() as cursor:
+        try:    
+            sql = 'SELECT DrinkID, PersonID FROM FavouriteDrinks'
             cursor.execute(sql)
             favs_data = cursor.fetchall()
+            
+            for drinkid, personid in favs_data:
+                drinkname = drinks.get(drinkid)
+                peoplename = people.get(personid)
+                favourites[peoplename] = drinkname
 
-    except error as err:
-        print(f"ERROR with:\n{err}")
+        except Exception as err:
+            print(f"ERROR with:\n{err}")
 
-    finally:
-        cursor.close()
-        connection.close()
+        finally:
+            cursor.close()
+            connection.close()
         
     
-    for name, drinkid in favs_data:
-        drinkid = drinks.get(drinkid)
-        favourites[name] = drinkid
 
 def write_fave_to_db(id, drinkid):
     connection = connect()
-
-    user_id = int(id)
-    user_pref = int(drinkid)
-    sql = f'UPDATE People SET drinkid = ({user_pref}) WHERE id = ({user_id});'
-    
-
     try:
-        with connection.cursor as cursor:
-            cursor.execute(sql)
+        with connection.cursor() as cursor:
+            user_id = int(id)
+            user_pref = int(drinkid)
+            sql = 'INSERT INTO FavouriteDrinks (DrinkID, PersonID) VALUES (%s, %s)'
+            cursor.execute(sql, [user_pref, user_id])
 
     except Exception as err:
         print(f"ERROR with:\n{err}")

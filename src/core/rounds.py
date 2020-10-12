@@ -4,10 +4,9 @@ from src.persistence.people_drinks import load_drinks, load_people
 
 class Drinks:
     def __init__(self):
-        self.menu_items = menu_items
-        # ['coke', 'coffee', 'tea', 'fanta', 'lemonade', 'pepsi', \
-        # 'tango', 'ice tea', 'green tea', 'strawberry milkshake']
- 
+        self.menu_items = ['coke', 'coffee', 'tea', 'fanta', 'lemonade', 'pepsi', \
+        'tango', 'ice tea', 'green tea', 'strawberry milkshake']
+        
     
 
     def menu(self):
