@@ -38,6 +38,7 @@ def run():
     elif command == Set_fav:
         set_drink_favs()
         wait()
+        run()
     elif command == View_fav:
         load_favs_from_db()
         print_table("Favourite Drinks", print_db_favs(favourites))
