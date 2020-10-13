@@ -7,7 +7,6 @@ class Drinks:
         self.menu_items = ['coke', 'coffee', 'tea', 'fanta', 'lemonade', 'pepsi', \
         'tango', 'ice tea', 'green tea', 'strawberry milkshake']
         
-    
 
     def menu(self):
         return f'Menu: {", ".join(self.menu_items).title()}'
@@ -19,6 +18,7 @@ class Drinks:
  
         string = (f'\n Our Menu: {", ".join(self.menu_items)}')
         print(f'{string}\n')
+        self.your_name = input("What is your name? ")
         self.order_items = \
         input('Can I take your order?\nSeperate multiple items with a comma.\n: ').split(',')
  
