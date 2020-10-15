@@ -5,6 +5,8 @@ from src.persistence.favourites import set_drink_favs
 from src.menu.table import print_table 
 from src.menu.index_menu import MENU, APP_NAME, get_menu_input, get_selection, print_main_menu, clear_screen, select_from_menu, wait
 
+# Adding a comment as a test – Johnny
+
 def run():
     print_main_menu()
     command = get_menu_input('Enter your selection:')
