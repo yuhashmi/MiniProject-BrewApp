@@ -10,11 +10,11 @@
     - OSX/Linux: `source .venv/bin/activate`
 
 - To check if your venv is activated:
-    - Windows (in GitBash): after each shell command it will print (<name of venv>) - probably (venv)
-    - OSX/Linux: The command prompt in your terminal will be prefixed with (<name of venv>) - probably (venv)
+    - Windows (in GitBash): after each shell command it will print `name of venv` - probably (venv)
+    - OSX/Linux: The command prompt in your terminal will be prefixed with `name of venv` - probably (venv)
     - On either you can also run `echo $VIRTUAL_ENV` - this environment variable is set by the venv activate script
     - If it prints nothing then the venv is not active
-    - If it prints (<name of venv>) - probably (venv) then the venv is active
+    - If it prints `name of venv` - probably (venv) then the venv is active
 
 - To deactivate the venv run deactivate in the shell when the venv is active
 
