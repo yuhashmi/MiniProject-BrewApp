@@ -1,1 +1,0 @@
-class is a blueprint that contains methods and variable just like a blueprint would

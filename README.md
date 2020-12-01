@@ -6,7 +6,7 @@
     - Your python command may be different eg. py, python3
 
 - To activate a venv run:
-    - Windows (in GitBash): `source venv/Scripts/activate`
+    - Windows (in GitBash): `source .venv/Scripts/activate`
     - OSX/Linux: `source .venv/bin/activate`
 
 - To check if your venv is activated:
